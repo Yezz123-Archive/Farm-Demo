@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+  db:
+    image: mongo
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+
+  frontend:
+    container_name: frontend
+    build:
+      dockerfile: frontend/Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app/frontend
+      - nodemodules:/app/frontend/node_modules
+    command: npm run start
+
+  backend:
+    container_name: backend
+    build:
+      dockerfile: backend/Dockerfile
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+    stdin_open: true
+    tty: true
+    command: uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    depends_on:
+      - frontend
+      - db
+
+volumes:
+  nodemodules:
