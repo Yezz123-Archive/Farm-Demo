@@ -1,25 +1,6 @@
 from bson import ObjectId
 from core.database import collection
 
-
-async def fetch_todo(id):
-    """
-    Fetch a single todo by id
-
-    Args:
-        _id (str): The id of the todo to fetch
-
-    Returns:
-        dict: The todo document
-    """
-    document = await collection.find_one({"_id": ObjectId(id)})
-    return {
-        "id": str(document["_id"]),
-        "title": document["title"],
-        "description": document["description"],
-    }
-
-
 async def fetch_todos():
     """
     Fetch all todos
@@ -40,7 +21,6 @@ async def fetch_todos():
 
     return todos
 
-
 async def create_todo(todo):
     """
     Create a new todo
@@ -60,6 +40,21 @@ async def create_todo(todo):
         "description": document["description"],
     }
 
+async def fetch_todo(id):
+    """
+    Fetch a single todo by id
+
+    Args:
+        _id (str): The id of the todo to fetch
+
+    Returns:
+        dict: The todo document
+    """
+    document = await collection.find_one({"_id": ObjectId(id)})
+    return {
+        "title": document["title"],
+        "description": document["description"],
+    }
 
 async def update_todo(id, title, description):
     """
