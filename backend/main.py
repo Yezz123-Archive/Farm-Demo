@@ -6,13 +6,14 @@ from api.crud import fetch_todo, fetch_todos, create_todo, update_todo, remove_t
 
 origins = ["http://localhost:3000"]
 
+# Create the FastAPI app
 app = FastAPI(
     title="Todo API - Demo Starter",
     description="A simple demo to show How FastAPI Interact with ReactJS & MongoDB",
     version="0.0.1",
 )
 
-# CORS
+# CORS: Cross-Origin Resource Sharing
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -45,8 +46,8 @@ async def list_todo():
     return response
 
 
-@app.get("/api/todo/{id}", response_model=Todo)
-async def get_todo(id):
+@app.get("/api/todo/{id}")
+async def get_todo(id: str):
     """
     Get a todo by id
 
@@ -88,7 +89,7 @@ async def post_todo(todo: Todo):
 
 
 @app.put("/api/todo/{id}", response_model=Todo)
-async def put_todo(id: str, description: str):
+async def put_todo(id: str, description: str, title: str):
     """
     Update a todo
 
@@ -102,7 +103,7 @@ async def put_todo(id: str, description: str):
     Returns:
         Response: todo object
     """
-    response = await update_todo(id, description)
+    response = await update_todo(id, description, title)
 
     if response:
         return response
