@@ -11,6 +11,7 @@ The FARM stack is FastAPI, React, and MongoDB. It is a simpler form of the MERN 
 Before Configure the FARM project, you need to install:
 
 - Python 3.6 or higher [Python](https://www.python.org/downloads/). (What is recommended for a FastAPI project)
+- Node.js 12 or higher [Node.js](https://nodejs.org/en/download/)
 - MongoDB [MongoDB](https://www.mongodb.com/download-center/community/).
 
 ### Backend
@@ -32,7 +33,7 @@ $ pip install -r requirements.txt
 
 ```bash
     # The following will work on Linux & OSX:
-    export MONGODB_URI = "mongodb://localhost:27017"
+    cp env.sample .env
 ```
 
 - Run the code with the following command:

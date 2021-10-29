@@ -2,7 +2,7 @@ from bson import ObjectId
 from core.database import collection
 
 
-async def fetch_todo(_id):
+async def fetch_todo(id):
     """
     Fetch a single todo by id
 
@@ -12,8 +12,12 @@ async def fetch_todo(_id):
     Returns:
         dict: The todo document
     """
-    document = await collection.find_one({"_id": _id})
-    return document
+    document = await collection.find_one({"_id": ObjectId(id)})
+    return {
+        "id": str(document["_id"]),
+        "title": document["title"],
+        "description": document["description"],
+    }
 
 
 async def fetch_todos():
@@ -92,4 +96,4 @@ async def remove_todo(id):
         dict: The removed todo document
     """
     collection.delete_one({"_id": ObjectId(id)})
-    return True
+    return {"status": "ok"}
