@@ -4,13 +4,15 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from api.crud import fetch_todo, fetch_todos, create_todo, update_todo, remove_todo
 
-origins = ["http://localhost:3000"]
+# Origins: is a list of origins that are allowed to make requests to this FastAPI
+origins = ["http://localhost:3000"] # TODO: Change this to your frontend url
 
 # Create the FastAPI app
 app = FastAPI(
     title="Todo API - Demo Starter",
     description="A simple demo to show How FastAPI Interact with ReactJS & MongoDB",
     version="0.0.1",
+    debug=True,
 )
 
 # CORS: Cross-Origin Resource Sharing
